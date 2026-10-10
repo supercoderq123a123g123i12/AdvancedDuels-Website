@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AdvancedDuels — Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0b0f;--bg-card:#12141c;--border:#2a2e3d;--text:#e8eaef;--muted:#8b90a0;--accent:#5b8def;--green:#3dd68c;--radius:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,11,15,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1100px;margin:0 auto;padding:.75rem 1.25rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.logo{font-weight:800;text-decoration:none;color:var(--text)}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:.25rem;flex:1;flex-wrap:wrap}
+.nav-links a{color:var(--muted);text-decoration:none;padding:.35rem .7rem;border-radius:8px;font-size:.9rem}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:#1a1d28}
+.btn-join{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.45rem 1rem;font-weight:600;cursor:pointer}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.4rem .85rem;cursor:pointer;text-decoration:none;font-size:.85rem}
+main{max-width:1100px;margin:0 auto;padding:1.5rem}
+.hero{text-align:center;padding:2.5rem 1rem}
+.hero h1{font-size:2.4rem;font-weight:800;margin:.5rem 0}
+.hero .accent{color:var(--accent)}
+.hero-sub{color:var(--muted);max-width:520px;margin:0 auto 1.25rem}
+.hero-stats{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin:1.5rem 0}
+.stat{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:.85rem 1.2rem;min-width:100px}
+.stat-val{display:block;font-size:1.4rem;font-weight:800}
+.stat-label{font-size:.75rem;color:var(--muted)}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-top:1rem}
+.card h2{font-size:1.1rem;margin-bottom:.75rem}
+.muted{color:var(--muted);font-size:.9rem}
+.status{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;padding:.25rem .6rem;border-radius:999px;background:#1a1d28;border:1px solid var(--border)}
+.dot{width:7px;height:7px;border-radius:50%;background:#f07178}
+.dot.on{background:var(--green)}
+.footer{border-top:1px solid var(--border);margin-top:2rem;padding:1rem;text-align:center;color:var(--muted);font-size:.85rem}
+code{background:#1a1d28;padding:.1rem .35rem;border-radius:4px;font-family:JetBrains Mono,monospace;font-size:.8rem}
+.panel{display:none}.panel.active{display:block}
+.input{width:100%;background:#1a1d28;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.55rem .75rem;margin:.35rem 0}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+<a class="logo" href="#">⚔ Advanced<span>Duels</span></a>
+<div class="nav-links">
+<a href="#" class="active" data-p="home">Home</a>
+<a href="#" data-p="api">API Test</a>
+<a href="#" data-p="about">About</a>
+</div>
+<span class="status"><span class="dot" id="dot"></span><span id="st">Offline</span></span>
+<button class="btn-join" id="copyIp">Play Now</button>
+</div></nav>
+<main>
+<section class="panel active" id="home">
+<header class="hero">
+<p class="muted">COMPETITIVE PVP NETWORK</p>
+<h1>Queue. Fight. <span class="accent">Climb.</span></h1>
+<p class="hero-sub">McPvP-style website connected to your AdvancedDuels plugin API. Set your API base below to test live data.</p>
+<div class="hero-actions">
+<button class="btn-join" id="btnRefresh">↻ Refresh / Test API</button>
+</div>
+<div class="hero-stats">
+<div class="stat"><span class="stat-val" id="sOnline">—</span><span class="stat-label">Online</span></div>
+<div class="stat"><span class="stat-val" id="sQueue">—</span><span class="stat-label">In Queue</span></div>
+<div class="stat"><span class="stat-val" id="sLive">—</span><span class="stat-label">Live</span></div>
+<div class="stat"><span class="stat-val" id="sPlayers">—</span><span class="stat-label">Players</span></div>
+</div>
+</header>
+<div class="card">
+<h2>Connect plugin API</h2>
+<p class="muted">Default <code>http://127.0.0.1:8080</code>. Use your server public IP when testing from GitHub Pages.</p>
+<input class="input" id="apiBase" value="http://127.0.0.1:8080" placeholder="http://YOUR_IP:8080"/>
+<input class="input" id="serverIp" value="play.yourserver.com" placeholder="Server IP"/>
+<button class="btn-join" id="saveApi" style="margin-top:.5rem">Save &amp; ping</button>
+<p class="muted" id="apiMsg" style="margin-top:.75rem"></p>
+</div>
+<div class="card">
+<h2>Live leaderboard sample</h2>
+<pre id="lb" class="muted" style="white-space:pre-wrap;font-family:JetBrains Mono,monospace;font-size:.8rem">Click Refresh after connecting the API.</pre>
+</div>
+</section>
+<section class="panel" id="api">
+<div class="card">
+<h2>API endpoints</h2>
+<p class="muted">Plugin must have <code>api.enabled: true</code> (port 8080).</p>
+<ul class="muted" style="margin:1rem 0 0 1.2rem;line-height:1.8">
+<li><code>/api/status</code></li>
+<li><code>/api/stats/global</code></li>
+<li><code>/api/leaderboard</code></li>
+<li><code>/api/matches/live</code></li>
+<li><code>/api/updates</code></li>
+<li><code>/api/auth/login</code></li>
+</ul>
+</div>
+</section>
+<section class="panel" id="about">
+<div class="card">
+<h2>AdvancedDuels Website</h2>
+<p class="muted">Public repo for testing the McPvP-style site. Connect the plugin API to test live stats from anywhere.</p>
+<p class="muted" style="margin-top:.75rem">Repo: <code>AdvancedDuels-Website</code></p>
+</div>
+</section>
+</main>
+<footer class="footer">AdvancedDuels · Connect API above to test live stats</footer>
+<script>
+const $=s=>document.querySelector(s);
+const apiBase=()=>localStorage.getItem('ad_api_base')||$('#apiBase').value.replace(/\/$/,'');
+$('#apiBase').value=localStorage.getItem('ad_api_base')||'http://127.0.0.1:8080';
+$('#serverIp').value=localStorage.getItem('ad_server_ip')||'play.yourserver.com';
+document.querySelectorAll('[data-p]').forEach(a=>a.onclick=e=>{
+ e.preventDefault();
+ document.querySelectorAll('[data-p]').forEach(x=>x.classList.remove('active'));
+ a.classList.add('active');
+ document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+ $('#'+a.dataset.p).classList.add('active');
+});
+async function ping(){
+ const base=apiBase();
+ $('#apiMsg').textContent='Pinging '+base+'…';
+ try{
+  const s=await fetch(base+'/api/status',{cache:'no-store'});
+  if(!s.ok)throw new Error(s.status);
+  const j=await s.json();
+  $('#dot').classList.add('on');$('#st').textContent='Live';
+  $('#apiMsg').textContent='OK — plugin online, players: '+(j.players??'?');
+  try{
+   const g=await (await fetch(base+'/api/stats/global',{cache:'no-store'})).json();
+   $('#sOnline').textContent=g.online??'—';
+   $('#sQueue').textContent=g.inQueue??'—';
+   $('#sLive').textContent=g.liveMatches??'—';
+   $('#sPlayers').textContent=g.totalPlayers??'—';
+  }catch(_){}
+  try{
+   const lb=await (await fetch(base+'/api/leaderboard?limit=10',{cache:'no-store'})).json();
+   const rows=(lb.leaderboard||[]).map((p,i)=>`${i+1}. ${p.name}  ${p.tier||''}  ${p.points??p.elo??''}`).join('\n');
+   $('#lb').textContent=rows||'No players on leaderboard yet.';
+  }catch(_){ $('#lb').textContent='Leaderboard unavailable'; }
+ }catch(e){
+  $('#dot').classList.remove('on');$('#st').textContent='Offline';
+  $('#apiMsg').textContent='Failed: '+e.message+'. Is the plugin API running and CORS open?';
+ }
+}
+$('#saveApi').onclick=()=>{
+ localStorage.setItem('ad_api_base',$('#apiBase').value.replace(/\/$/,''));
+ localStorage.setItem('ad_server_ip',$('#serverIp').value);
+ ping();
+};
+$('#btnRefresh').onclick=ping;
+$('#copyIp').onclick=()=>{
+ const ip=$('#serverIp').value;
+ navigator.clipboard?.writeText(ip).then(()=>alert('Copied: '+ip)).catch(()=>prompt('IP',ip));
+};
+ping();
+</script>
+</body>
+</html>
