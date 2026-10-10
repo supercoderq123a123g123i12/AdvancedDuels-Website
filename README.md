@@ -1,31 +1,38 @@
 # AdvancedDuels Website
 
-McPvP-style competitive PvP website (leaderboards, live matches, client page, login, one-click updates).
+Public test site for the McPvP-style AdvancedDuels website + plugin API.
 
-## Test this site
+## Live URL (GitHub Pages)
 
-### Option A — GitHub Pages
-1. Repo **Settings → Pages**
-2. Source: **Deploy from a branch** → `main` → `/ (root)`
-3. Open `https://supercoderq123a123g123i12.github.io/AdvancedDuels-Website/`
+1. Open **Settings → Pages** on this repo
+2. **Source:** Deploy from a branch
+3. Branch: **main** / folder: **/ (root)** → Save
+4. After ~1 minute open:
 
-### Option B — Local
-```bash
-npx serve .
-# or: python3 -m http.server 5500
-```
+**https://supercoderq123a123g123i12.github.io/AdvancedDuels-Website/**
 
-### Connect to your plugin API
-1. Run the AdvancedDuels plugin with `api.enabled: true` (default port **8080**).
-2. On the site footer, click **Change** next to API and set e.g. `http://YOUR_SERVER_IP:8080`.
-3. Or edit `js/config.js` → `apiBase`.
+## What this page does
 
-**CORS:** the plugin API already sends `Access-Control-Allow-Origin: *`.
+- **Refresh / Test API** — pings `/api/status`, loads global stats + top 10 leaderboard
+- **Save API base** — set `http://YOUR_SERVER_IP:8080` (plugin must be running with `api.enabled: true`)
+- **Play Now** — copies the server IP you set
 
-### Login flow
-1. In-game: `/register <password>`
-2. Website: **Log in** with your Minecraft name + password
-3. Confirm with `/confirmlogin` while online (if enabled)
+## Connect your Minecraft server
 
-### Update button
-**Update** in the nav refreshes all live data and shows Plugin / Client / Website / Launcher versions from `/api/updates`.
+1. Run AdvancedDuels with API on port **8080** (open firewall)
+2. On the site, set API base to `http://YOUR_PUBLIC_IP:8080`
+3. Click **Save & ping**
+
+CORS is already enabled on the plugin (`Access-Control-Allow-Origin: *`).
+
+## Full multi-page website
+
+The complete site (login, tiers, client page, updates, etc.) lives in your project at:
+
+`AdvancedDuels/website/` (`index.html`, `css/`, `js/`)
+
+To host the full UI on Pages later, push those files into this repo (or clone and copy them in).
+
+## Repo
+
+https://github.com/supercoderq123a123g123i12/AdvancedDuels-Website
