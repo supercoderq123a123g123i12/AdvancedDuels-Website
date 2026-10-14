@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="360" viewBox="0 0 400 360">
+  <defs>
+    <radialGradient id="rays" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#3a1010"/>
+      <stop offset="100%" stop-color="#0a0508"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="360" fill="url(#rays)"/>
+  <g stroke="#5a2020" stroke-width="2" opacity="0.4">
+    <line x1="200" y1="180" x2="40" y2="20"/><line x1="200" y1="180" x2="120" y2="10"/>
+    <line x1="200" y1="180" x2="280" y2="10"/><line x1="200" y1="180" x2="360" y2="20"/>
+  </g>
+  <rect x="155" y="90" width="90" height="100" fill="#5aaf3a"/>
+  <rect x="170" y="40" width="60" height="55" fill="#5aaf3a"/>
+  <rect x="120" y="95" width="35" height="90" fill="#5aaf3a"/>
+  <rect x="245" y="95" width="35" height="90" fill="#5aaf3a"/>
+  <rect x="175" y="100" width="95" height="160" rx="4" fill="#1a0808" stroke="#ff4444" stroke-width="2" transform="rotate(-8 220 180)"/>
+  <text x="222" y="150" text-anchor="middle" font-family="Arial Black" font-size="14" fill="#ff4444" transform="rotate(-8 222 150)">PHANTOM</text>
+  <text x="222" y="168" text-anchor="middle" font-family="Arial Black" font-size="12" fill="#fff" transform="rotate(-8 222 168)">PVP</text>
+  <path d="M200 190 L230 230 L170 230 Z" fill="none" stroke="#ff8866" stroke-width="3" transform="rotate(-8 200 210)"/>
+</svg>
