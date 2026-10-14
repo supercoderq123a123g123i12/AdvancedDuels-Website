@@ -1,155 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AdvancedDuels — Test</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
-<style>
-:root{--bg:#0a0b0f;--bg-card:#12141c;--border:#2a2e3d;--text:#e8eaef;--muted:#8b90a0;--accent:#5b8def;--green:#3dd68c;--radius:12px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,11,15,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.nav-inner{max-width:1100px;margin:0 auto;padding:.75rem 1.25rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
-.logo{font-weight:800;text-decoration:none;color:var(--text)}.logo span{color:var(--accent)}
-.nav-links{display:flex;gap:.25rem;flex:1;flex-wrap:wrap}
-.nav-links a{color:var(--muted);text-decoration:none;padding:.35rem .7rem;border-radius:8px;font-size:.9rem}
-.nav-links a:hover,.nav-links a.active{color:var(--text);background:#1a1d28}
-.btn-join{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.45rem 1rem;font-weight:600;cursor:pointer}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.4rem .85rem;cursor:pointer;text-decoration:none;font-size:.85rem}
-main{max-width:1100px;margin:0 auto;padding:1.5rem}
-.hero{text-align:center;padding:2.5rem 1rem}
-.hero h1{font-size:2.4rem;font-weight:800;margin:.5rem 0}
-.hero .accent{color:var(--accent)}
-.hero-sub{color:var(--muted);max-width:520px;margin:0 auto 1.25rem}
-.hero-stats{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin:1.5rem 0}
-.stat{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:.85rem 1.2rem;min-width:100px}
-.stat-val{display:block;font-size:1.4rem;font-weight:800}
-.stat-label{font-size:.75rem;color:var(--muted)}
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-top:1rem}
-.card h2{font-size:1.1rem;margin-bottom:.75rem}
-.muted{color:var(--muted);font-size:.9rem}
-.status{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;padding:.25rem .6rem;border-radius:999px;background:#1a1d28;border:1px solid var(--border)}
-.dot{width:7px;height:7px;border-radius:50%;background:#f07178}
-.dot.on{background:var(--green)}
-.footer{border-top:1px solid var(--border);margin-top:2rem;padding:1rem;text-align:center;color:var(--muted);font-size:.85rem}
-code{background:#1a1d28;padding:.1rem .35rem;border-radius:4px;font-family:JetBrains Mono,monospace;font-size:.8rem}
-.panel{display:none}.panel.active{display:block}
-.input{width:100%;background:#1a1d28;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.55rem .75rem;margin:.35rem 0}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhantomPvP — Competitive Minecraft PvP</title>
+  <meta name="description" content="PhantomPvP competitive duels network. Leaderboards, ranked tiers, official client & launcher, limited Beta cloak." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
 </head>
 <body>
-<nav class="nav"><div class="nav-inner">
-<a class="logo" href="#">⚔ Advanced<span>Duels</span></a>
-<div class="nav-links">
-<a href="#" class="active" data-p="home">Home</a>
-<a href="#" data-p="api">API Test</a>
-<a href="#" data-p="about">About</a>
-</div>
-<span class="status"><span class="dot" id="dot"></span><span id="st">Offline</span></span>
-<button class="btn-join" id="copyIp">Play Now</button>
-</div></nav>
-<main>
-<section class="panel active" id="home">
-<header class="hero">
-<p class="muted">COMPETITIVE PVP NETWORK</p>
-<h1>Queue. Fight. <span class="accent">Climb.</span></h1>
-<p class="hero-sub">McPvP-style website connected to your AdvancedDuels plugin API. Set your API base below to test live data.</p>
-<div class="hero-actions">
-<button class="btn-join" id="btnRefresh">↻ Refresh / Test API</button>
-</div>
-<div class="hero-stats">
-<div class="stat"><span class="stat-val" id="sOnline">—</span><span class="stat-label">Online</span></div>
-<div class="stat"><span class="stat-val" id="sQueue">—</span><span class="stat-label">In Queue</span></div>
-<div class="stat"><span class="stat-val" id="sLive">—</span><span class="stat-label">Live</span></div>
-<div class="stat"><span class="stat-val" id="sPlayers">—</span><span class="stat-label">Players</span></div>
-</div>
-</header>
-<div class="card">
-<h2>Connect plugin API</h2>
-<p class="muted">Default <code>http://127.0.0.1:8080</code>. Use your server public IP when testing from GitHub Pages.</p>
-<input class="input" id="apiBase" value="http://127.0.0.1:8080" placeholder="http://YOUR_IP:8080"/>
-<input class="input" id="serverIp" value="play.yourserver.com" placeholder="Server IP"/>
-<button class="btn-join" id="saveApi" style="margin-top:.5rem">Save &amp; ping</button>
-<p class="muted" id="apiMsg" style="margin-top:.75rem"></p>
-</div>
-<div class="card">
-<h2>Live leaderboard sample</h2>
-<pre id="lb" class="muted" style="white-space:pre-wrap;font-family:JetBrains Mono,monospace;font-size:.8rem">Click Refresh after connecting the API.</pre>
-</div>
-</section>
-<section class="panel" id="api">
-<div class="card">
-<h2>API endpoints</h2>
-<p class="muted">Plugin must have <code>api.enabled: true</code> (port 8080).</p>
-<ul class="muted" style="margin:1rem 0 0 1.2rem;line-height:1.8">
-<li><code>/api/status</code></li>
-<li><code>/api/stats/global</code></li>
-<li><code>/api/leaderboard</code></li>
-<li><code>/api/matches/live</code></li>
-<li><code>/api/updates</code></li>
-<li><code>/api/auth/login</code></li>
-</ul>
-</div>
-</section>
-<section class="panel" id="about">
-<div class="card">
-<h2>AdvancedDuels Website</h2>
-<p class="muted">Public repo for testing the McPvP-style site. Connect the plugin API to test live stats from anywhere.</p>
-<p class="muted" style="margin-top:.75rem">Repo: <code>AdvancedDuels-Website</code></p>
-</div>
-</section>
-</main>
-<footer class="footer">AdvancedDuels · Connect API above to test live stats</footer>
-<script>
-const $=s=>document.querySelector(s);
-const apiBase=()=>localStorage.getItem('ad_api_base')||$('#apiBase').value.replace(/\/$/,'');
-$('#apiBase').value=localStorage.getItem('ad_api_base')||'http://127.0.0.1:8080';
-$('#serverIp').value=localStorage.getItem('ad_server_ip')||'play.yourserver.com';
-document.querySelectorAll('[data-p]').forEach(a=>a.onclick=e=>{
- e.preventDefault();
- document.querySelectorAll('[data-p]').forEach(x=>x.classList.remove('active'));
- a.classList.add('active');
- document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
- $('#'+a.dataset.p).classList.add('active');
-});
-async function ping(){
- const base=apiBase();
- $('#apiMsg').textContent='Pinging '+base+'…';
- try{
-  const s=await fetch(base+'/api/status',{cache:'no-store'});
-  if(!s.ok)throw new Error(s.status);
-  const j=await s.json();
-  $('#dot').classList.add('on');$('#st').textContent='Live';
-  $('#apiMsg').textContent='OK — plugin online, players: '+(j.players??'?');
-  try{
-   const g=await (await fetch(base+'/api/stats/global',{cache:'no-store'})).json();
-   $('#sOnline').textContent=g.online??'—';
-   $('#sQueue').textContent=g.inQueue??'—';
-   $('#sLive').textContent=g.liveMatches??'—';
-   $('#sPlayers').textContent=g.totalPlayers??'—';
-  }catch(_){}
-  try{
-   const lb=await (await fetch(base+'/api/leaderboard?limit=10',{cache:'no-store'})).json();
-   const rows=(lb.leaderboard||[]).map((p,i)=>`${i+1}. ${p.name}  ${p.tier||''}  ${p.points??p.elo??''}`).join('\n');
-   $('#lb').textContent=rows||'No players on leaderboard yet.';
-  }catch(_){ $('#lb').textContent='Leaderboard unavailable'; }
- }catch(e){
-  $('#dot').classList.remove('on');$('#st').textContent='Offline';
-  $('#apiMsg').textContent='Failed: '+e.message+'. Is the plugin API running and CORS open?';
- }
-}
-$('#saveApi').onclick=()=>{
- localStorage.setItem('ad_api_base',$('#apiBase').value.replace(/\/$/,''));
- localStorage.setItem('ad_server_ip',$('#serverIp').value);
- ping();
-};
-$('#btnRefresh').onclick=ping;
-$('#copyIp').onclick=()=>{
- const ip=$('#serverIp').value;
- navigator.clipboard?.writeText(ip).then(()=>alert('Copied: '+ip)).catch(()=>prompt('IP',ip));
-};
-ping();
-</script>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-pill">
+        <span class="brand-text">PHANTOM<span>PVP</span></span>
+      </div>
+      <nav class="nav-icons">
+        <a href="#" data-page="home" class="active" title="Home">Home</a>
+        <a href="#" data-page="leaderboard" title="Leaderboard">Ranks</a>
+        <a href="#" data-page="client" title="Client">Client</a>
+        <a href="#" data-page="profile" title="Profile">Profile</a>
+      </nav>
+      <div class="user-row">
+        <strong id="navUser">Guest</strong>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-wrap">
+    <input class="search-box" id="globalSearch" type="search" placeholder="Search player…" autocomplete="off" />
+  </div>
+
+  <main>
+    <section id="page-home" class="page active">
+      <h2 class="section-title">Top Players</h2>
+      <div class="podium" id="podium"><div class="empty">Loading leaderboard…</div></div>
+      <div class="lb-list" id="homeRest"></div>
+
+      <div class="cloak-card" id="cloakCard">
+        <div class="cloak-preview">
+          <img src="assets/cloak-preview.svg" alt="PhantomPvP Beta Cloak" />
+        </div>
+        <div class="cloak-body">
+          <div class="cloak-badge">LIMITED TIME</div>
+          <h2>Beta Release Cloak</h2>
+          <p>Get a free, limited time, PhantomPvP cloak to celebrate Beta! Redeem it in the launcher soon, before it's gone.</p>
+          <button class="btn-claim" type="button" id="btnClaimCloak">Claim Phantom Cloak</button>
+        </div>
+      </div>
+
+      <div class="partner-banner" style="margin-top:1.5rem">
+        <span>PHANTOM</span>
+        <span style="opacity:0.7">×</span>
+        <span style="color:#fff">CLIENT</span>
+      </div>
+      <div class="download-row">
+        <a class="btn-download" id="homeDownload" href="#">Download Launcher</a>
+      </div>
+    </section>
+
+    <section id="page-leaderboard" class="page">
+      <h2 class="section-title">Leaderboard</h2>
+      <div class="kit-tabs" id="kitTabs">
+        <button class="kit-tab active" data-kit="">Overall</button>
+      </div>
+      <div class="lb-full" id="fullLb"><div class="empty">Loading…</div></div>
+    </section>
+
+    <section id="page-client" class="page">
+      <div class="client-hero">
+        <div class="partner-banner">
+          <span>PHANTOM</span>
+          <span style="opacity:0.7">×</span>
+          <span>LAUNCHER</span>
+        </div>
+        <h1>The Official<br/><span>PhantomPvP</span> Client</h1>
+        <div class="download-row">
+          <a class="btn-download" id="clientDownload" href="#">Download for Windows</a>
+          <button class="btn-dd" type="button" id="platformMenu" title="Other platforms">▾</button>
+        </div>
+        <div class="kit-tabs hidden" id="platformList" style="justify-content:center"></div>
+      </div>
+      <div id="featureCarousel"></div>
+      <div class="feature-card">
+        <div class="feature-visual">🏆</div>
+        <h2>Beta Access</h2>
+        <p>Get immediate Beta Access to the PhantomPvP network through an automatic whitelist for Phantom Client players. Warm up before the tournaments start flowing.</p>
+      </div>
+      <div class="cloak-card">
+        <div class="cloak-preview"><img src="assets/cloak-preview.svg" alt="Cloak" /></div>
+        <div class="cloak-body">
+          <div class="cloak-badge">LIMITED TIME</div>
+          <h2>Beta Release Cloak</h2>
+          <p>Custom PhantomPvP logo cloak. Claim free during Beta — redeem in the launcher.</p>
+          <button class="btn-claim" type="button" id="btnClaimCloak2">Claim Phantom Cloak</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-profile" class="page">
+      <div class="profile-header">
+        <div class="profile-skin-wrap"><img id="profileBody" src="" alt="" /></div>
+        <div class="profile-name" id="profileName">—</div>
+        <div class="muted" id="profileSub">Search a player above</div>
+      </div>
+      <div class="profile-tabs">
+        <button type="button" class="active" data-tab="general">General</button>
+        <button type="button" data-tab="stats">Stats</button>
+        <button type="button" data-tab="history">Match History</button>
+      </div>
+      <div id="tab-general">
+        <div class="kit-selector" id="profileKits"></div>
+        <div class="stat-card">
+          <h3>Match Record</h3>
+          <div class="stat-grid">
+            <div><div class="val" id="pWins">—</div><div class="lbl">Wins</div></div>
+            <div><div class="val" id="pLosses">—</div><div class="lbl">Losses</div></div>
+            <div><div class="val green" id="pWinRate">—</div><div class="lbl">Win rate</div></div>
+          </div>
+          <div class="progress"><span id="pWinBar" style="width:0%"></span></div>
+        </div>
+        <div class="stat-card">
+          <h3>Combat</h3>
+          <div class="stat-row"><span class="k">Kill/death ratio</span><span class="v" id="pKdr">—</span></div>
+          <div class="stat-row"><span class="k">Kills</span><span class="v" id="pKills">—</span></div>
+          <div class="stat-row"><span class="k">Deaths</span><span class="v" id="pDeaths">—</span></div>
+        </div>
+        <div class="stat-card">
+          <h3>Win Streaks</h3>
+          <div class="stat-row"><span class="k">Current streak</span><span class="v" id="pStreak">—</span></div>
+          <div class="stat-row"><span class="k">Best streak</span><span class="v" id="pBest">—</span></div>
+        </div>
+      </div>
+      <div id="tab-stats" class="hidden">
+        <div class="stat-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+            <span class="muted">Tier <strong id="pTier" style="color:var(--green)">—</strong></span>
+            <span class="muted">Rank <strong id="pRank">—</strong></span>
+          </div>
+          <h3>Skill Rating</h3>
+          <div class="big-pct" id="pSkill">—</div>
+          <div class="progress"><span id="pSkillBar" style="width:0%"></span></div>
+          <p class="muted" style="margin-top:0.5rem;font-size:0.85rem">Rating <span id="pPoints">—</span></p>
+        </div>
+        <div class="stat-card">
+          <h3>Confidence</h3>
+          <div class="big-pct" id="pConf">—</div>
+          <div class="progress"><span id="pConfBar" style="width:0%"></span></div>
+          <p class="muted" style="margin-top:0.5rem;font-size:0.85rem" id="pConfMeta">—</p>
+        </div>
+        <div class="stat-card">
+          <h3>Overall Ranking</h3>
+          <p class="muted" style="font-size:0.85rem">Points: <strong id="pPoints2">—</strong> · Tier: <strong id="pTier2">—</strong></p>
+          <p class="muted" style="margin-top:0.75rem;font-size:0.8rem" id="pUuid">UUID: —</p>
+        </div>
+      </div>
+      <div id="tab-history" class="hidden">
+        <div class="stat-card">
+          <h3>Recent Matches</h3>
+          <div id="matchHistory" class="empty">No matches yet.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    PhantomPvP · Live data from your duels plugin<br/>
+    API: <code id="apiDisplay">—</code>
+    <button type="button" id="btnApi" style="margin-left:0.5rem;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:0.2rem 0.5rem;font-size:0.75rem">Change</button>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
