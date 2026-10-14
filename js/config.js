@@ -22,9 +22,9 @@ window.PP_CONFIG = {
     launcherUrl: '#',
     discordUrl: '#',
     platforms: [
-      { id: 'windows', label: 'Download for Windows', icon: '💻' },
-      { id: 'macos', label: 'Download for macOS', icon: '🍎' },
-      { id: 'linux', label: 'Download for Linux', icon: '🐧' }
+      { id: 'windows', label: 'Download for Windows', icon: '\uD83D\uDCBB' },
+      { id: 'macos', label: 'Download for macOS', icon: '\uD83C\uDF4E' },
+      { id: 'linux', label: 'Download for Linux', icon: '\uD83D\uDC27' }
     ],
     features: [
       {
@@ -57,10 +57,10 @@ window.PP_CONFIG = {
   },
 
   regions: [
-    { name: 'North America', servers: 1, flag: '🇺🇸' },
-    { name: 'Europe', servers: 1, flag: '🇪🇺' },
-    { name: 'Latin America', servers: 0, flag: '🇧🇷' },
-    { name: 'Asia', servers: 0, flag: '🇯🇵' },
-    { name: 'Oceania', servers: 0, flag: '🇦🇺' }
+    { name: 'North America', servers: 1, flag: '\uD83C\uDDFA\uD83C\uDDF8' },
+    { name: 'Europe', servers: 1, flag: '\uD83C\uDDEA\uD83C\uDDFA' },
+    { name: 'Latin America', servers: 0, flag: '\uD83C\uDDE7\uD83C\uDDF7' },
+    { name: 'Asia', servers: 0, flag: '\uD83C\uDDEF\uD83C\uDDF5' },
+    { name: 'Oceania', servers: 0, flag: '\uD83C\uDDE6\uD83C\uDDFA' }
   ]
 };
